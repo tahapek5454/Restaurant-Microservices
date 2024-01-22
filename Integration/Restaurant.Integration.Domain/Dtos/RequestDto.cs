@@ -11,7 +11,7 @@ namespace Restaurant.Integration.Domain.Dtos
     {
         public ActionType ActionType { get; set; } = ActionType.GET;
         public string Url { get; set; }
-        public T Data { get; set; }
+        public T? Data { get; set; }
         public string? AccessToken { get; set; }
     }
 }
