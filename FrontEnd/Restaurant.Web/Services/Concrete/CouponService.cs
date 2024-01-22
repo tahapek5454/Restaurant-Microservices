@@ -15,7 +15,7 @@ namespace Restaurant.Web.Services.Concrete
         public async Task<ResponseDto<BlankDto>> CreateCouponAsync(CouponCreateDto couponCreateDto)
              => await SendAsync<CouponCreateDto, BlankDto>(new()
              {
-                 Url = $"{ConstData.CouponAPIBase}/Coupon",
+                 Url = $"{ConstData.CouponAPIBase}/Coupons",
                  ActionType = Integration.Domain.Enums.ActionType.POST,
                  Data = couponCreateDto,
                  AccessToken = null
@@ -24,7 +24,7 @@ namespace Restaurant.Web.Services.Concrete
         public async Task<ResponseDto<BlankDto>> DeleteCouponAsync(int id)
             => await SendAsync<BlankDto, BlankDto>(new()
             {
-                Url = $"{ConstData.CouponAPIBase}/Coupon/{id}",
+                Url = $"{ConstData.CouponAPIBase}/Coupons/{id}",
                 ActionType = Integration.Domain.Enums.ActionType.DELETE,
                 Data = null,
                 AccessToken = null
@@ -34,7 +34,7 @@ namespace Restaurant.Web.Services.Concrete
         public async Task<ResponseDto<List<CouponDto>>> GetAllCouponAsync()
             => await SendAsync<BlankDto, List<CouponDto>>(new()
             {
-                Url = $"{ConstData.CouponAPIBase}/Coupon/GetAllCoupon",
+                Url = $"{ConstData.CouponAPIBase}/Coupons/GetAllCoupon",
                 ActionType = Integration.Domain.Enums.ActionType.GET,
                 Data = null,
                 AccessToken = null
@@ -44,7 +44,7 @@ namespace Restaurant.Web.Services.Concrete
         public async Task<ResponseDto<CouponDto>> GetCouponByCodeAsync(string couponCode)
             => await SendAsync<BlankDto, CouponDto>(new()
             {
-                Url = $"{ConstData.CouponAPIBase}/Coupon/GetCouponByCode?couponCode={couponCode}",
+                Url = $"{ConstData.CouponAPIBase}/Coupons/GetCouponByCode?couponCode={couponCode}",
                 ActionType = Integration.Domain.Enums.ActionType.GET,
                 Data = null,
                 AccessToken= null
@@ -54,7 +54,7 @@ namespace Restaurant.Web.Services.Concrete
         public async Task<ResponseDto<CouponDto>> GetCouponByIdAsync(int id)
             => await SendAsync<BlankDto, CouponDto>(new()
             {
-                Url = $"{ConstData.CouponAPIBase}/Coupon/GetCouponById/{id}",
+                Url = $"{ConstData.CouponAPIBase}/Coupons/GetCouponById/{id}",
                 ActionType = Integration.Domain.Enums.ActionType.GET,
                 Data = null,
                 AccessToken = null
@@ -63,7 +63,7 @@ namespace Restaurant.Web.Services.Concrete
         public async Task<ResponseDto<BlankDto>> UpdateCouponAsync(CouponUpdateDto coupononUpdateDto)
             => await SendAsync<CouponUpdateDto, BlankDto>(new()
             {
-                Url = $"{ConstData.CouponAPIBase}/Coupon",
+                Url = $"{ConstData.CouponAPIBase}/Coupons",
                 ActionType = Integration.Domain.Enums.ActionType.PUT,
                 Data = coupononUpdateDto,
                 AccessToken = null
