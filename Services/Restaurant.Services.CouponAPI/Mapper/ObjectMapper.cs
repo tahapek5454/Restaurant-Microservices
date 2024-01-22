@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Restaurant.Services.CouponAPI.Mapper.CouponProfile;
 
 namespace Restaurant.Services.CouponAPI.Mapper
 {
@@ -9,6 +10,8 @@ namespace Restaurant.Services.CouponAPI.Mapper
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AllowNullCollections = true;
+
+                cfg.AddProfile<CouponMapper>();
 
             });
 
