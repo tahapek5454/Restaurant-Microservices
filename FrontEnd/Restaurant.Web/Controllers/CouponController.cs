@@ -11,8 +11,12 @@ namespace Restaurant.Web.Controllers
             var result = await _couponService.GetAllCouponAsync();
 
             if(result is null || !result.IsSuccessful)
+            {
+                TempData["error"] = result?.Error?.Errors.First().ToString();
                 return NotFound();
+            }
 
+            TempData["success"] = "Success";
             return View(result.Data);
         }
 
@@ -24,14 +28,19 @@ namespace Restaurant.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CouponCreate(CouponCreateDto model)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
+            {
                 return View(model);
+            }
+               
 
             var result  = await _couponService.CreateCouponAsync(model);
 
             if(result is not null || result.IsSuccessful) 
                 return RedirectToAction(nameof(CouponIndex));
 
+
+            TempData["error"] = result?.Error?.Errors.First().ToString();
 
             return View(model);
         }
@@ -40,6 +49,9 @@ namespace Restaurant.Web.Controllers
         {
 
             var result  = await _couponService.DeleteCouponAsync(couponId);
+
+            if(!result.IsSuccessful)
+                TempData["error"] = result?.Error?.Errors.First().ToString();
 
             return RedirectToAction(nameof(CouponIndex));
         }
