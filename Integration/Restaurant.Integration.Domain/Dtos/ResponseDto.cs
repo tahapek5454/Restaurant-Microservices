@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,11 +10,13 @@ namespace Restaurant.Integration.Domain.Dtos
 {
     public class ResponseDto <T> where T : class
     {
+        [JsonProperty("data")]
         public T? Data { get; private set; }
+        [JsonProperty("statusCode")]
         public int StatusCode { get; private set; }
+        [JsonProperty("error")]
         public ErrorDto? Error { get; private set; }
-
-        [JsonIgnore]
+        [JsonProperty("isSuccessful")]
         public bool IsSuccessful { get; private set; }
         public static ResponseDto<T> Sucess(T data, int statusCode)
             => new ResponseDto<T> { Data = data, StatusCode = statusCode, IsSuccessful = true };
