@@ -35,5 +35,14 @@ namespace Restaurant.Web.Controllers
 
             return View(model);
         }
+
+        public async Task<IActionResult> CouponDelete(int couponId)
+        {
+
+            var result  = await _couponService.DeleteCouponAsync(couponId);
+
+            return RedirectToAction(nameof(CouponIndex));
+        }
+
     }
 }
