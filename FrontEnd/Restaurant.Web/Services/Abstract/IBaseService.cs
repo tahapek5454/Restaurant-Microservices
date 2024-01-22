@@ -2,10 +2,9 @@
 
 namespace Restaurant.Web.Services.Abstract
 {
-    public interface IBaseService<TRequest, TResponse> 
-        where TRequest : class
-        where TResponse : class
+    public interface IBaseService
     {
-        Task<ResponseDto<TResponse>> SendAsync(RequestDto<TRequest> requestDto);
+        Task<ResponseDto<TResponse>> SendAsync<TRequest, TResponse>(RequestDto<TRequest> requestDto) 
+            where TRequest : class where TResponse: class;
     }
 }

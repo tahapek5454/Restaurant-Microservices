@@ -6,11 +6,11 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 namespace Restaurant.Web.Services.Concrete
 {
-    public class BaseService<TRequest, TResponse>(IHttpClientFactory _httpClientFactory) : IBaseService<TRequest, TResponse>
-        where TRequest : class
-		where TResponse : class
+    public class BaseService(IHttpClientFactory _httpClientFactory) : IBaseService
     {
-        public async Task<ResponseDto<TResponse>> SendAsync(RequestDto<TRequest> requestDto)
+        public async Task<ResponseDto<TResponse>> SendAsync<TRequest, TResponse>(RequestDto<TRequest> requestDto)
+            where TRequest : class
+			where TResponse : class
         {
 			try
 			{
