@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Restaurant.Services.CouponAPI.Data.Contexts;
+using System.Reflection;
 
 namespace Restaurant.Services.CouponAPI
 {
@@ -11,6 +12,9 @@ namespace Restaurant.Services.CouponAPI
             {
                 optionsAction.UseSqlServer(connecitonString);
             });
+
+
+            serviceCollection.AddAutoMapper(Assembly.GetExecutingAssembly());
         }
     }
 }
