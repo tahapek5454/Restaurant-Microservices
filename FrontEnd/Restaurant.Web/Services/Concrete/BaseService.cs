@@ -1,9 +1,10 @@
-﻿using Restaurant.Integration.Domain.Dtos;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Restaurant.Integration.Domain.Dtos;
+using Restaurant.Web.Models.Dtos.Coupon;
 using Restaurant.Web.Services.Abstract;
 using System.Net.Mime;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 namespace Restaurant.Web.Services.Concrete
 {
     public class BaseService(IHttpClientFactory _httpClientFactory) : IBaseService
@@ -25,7 +26,7 @@ namespace Restaurant.Web.Services.Concrete
 				{
 					message.Content =
 						new StringContent
-						(JsonSerializer.Serialize(requestDto.Data), Encoding.UTF8, MediaTypeNames.Application.Json);
+						(JsonConvert.SerializeObject(requestDto.Data), Encoding.UTF8, MediaTypeNames.Application.Json);
 				}
 
 				HttpResponseMessage? apiResponse = null;
@@ -49,9 +50,9 @@ namespace Restaurant.Web.Services.Concrete
 					_ => null
                 };
 
-				if(result is null)
-                    result = JsonSerializer.Deserialize<ResponseDto<TResponse>>(await apiResponse.Content.ReadAsStringAsync());
-
+                if (result is null)
+                    result = JsonConvert.DeserializeObject<ResponseDto<TResponse>>(await apiResponse.Content.ReadAsStringAsync());
+				
 
 				return result ?? ResponseDto<TResponse>.Fail("Deserialize failed", false, 500);
             }
