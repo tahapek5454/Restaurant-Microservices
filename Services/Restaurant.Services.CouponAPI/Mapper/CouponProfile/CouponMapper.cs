@@ -10,6 +10,10 @@ namespace Restaurant.Services.CouponAPI.Mapper.CouponProfile
         {
             CreateMap<Coupon, CouponDto>()
                 .ReverseMap();
+
+            CreateMap<CouponCreateDto, Coupon>();
+
+            CreateMap<CouponUpdateDto, Coupon>();
         }
     }
 }
