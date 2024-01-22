@@ -14,5 +14,10 @@ namespace Restaurant.Web.Controllers
 
             return View(result.Data);
         }
+
+        public async Task<IActionResult> CouponCreate()
+        {
+            return View();
+        }
     }
 }
