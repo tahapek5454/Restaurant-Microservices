@@ -9,7 +9,7 @@ namespace Restaurant.Web.Controllers
         {
             var result = await _couponService.GetAllCouponAsync();
 
-            if(result is null || result.IsSuccessful is false || result.Data is null)
+            if(result is null || result.IsSuccessful is false)
                 return NotFound();
 
             return View(result.Data);
