@@ -21,6 +21,9 @@ namespace Restaurant.Services.AuthAPI.Controllers
         public async Task<IActionResult> Register([FromBody] RegistrationRequestDto registrationRequestDto)
         {
             var response = await _userService.RegisterUserAsync(registrationRequestDto);
+
+            if(!response.IsSuccessful)
+                return BadRequest(response);
             
             return Ok(response);
         }
@@ -31,6 +34,9 @@ namespace Restaurant.Services.AuthAPI.Controllers
         {
             var response = await _userService.LoginUserAsync(loginRequestDto);
 
+            if (!response.IsSuccessful)
+                return BadRequest(response);
+
             return Ok(response);
         }
 
@@ -38,6 +44,9 @@ namespace Restaurant.Services.AuthAPI.Controllers
         public async Task<IActionResult> AssignRoleToUser([FromBody] List<string> roles, [FromRoute] int userid)
         {
             var response = await _userService.AssignRoleToUserAsync(userid, roles);
+
+            if (!response.IsSuccessful)
+                return BadRequest(response);
 
             return Ok(response);
         }
