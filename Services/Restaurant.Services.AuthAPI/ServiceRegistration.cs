@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Restaurant.Services.AuthAPI.Data.Contexts;
+using Restaurant.Services.AuthAPI.Models;
 
 namespace Restaurant.Services.AuthAPI
 {
@@ -10,7 +11,7 @@ namespace Restaurant.Services.AuthAPI
         {
             serviceCollection.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
-            serviceCollection.AddIdentity<IdentityUser<int>, IdentityRole<int>>(options =>
+            serviceCollection.AddIdentity<AppUser, IdentityRole<int>>(options =>
             {
                 options.User.RequireUniqueEmail = true;
                 options.Password.RequiredLength = 3;
