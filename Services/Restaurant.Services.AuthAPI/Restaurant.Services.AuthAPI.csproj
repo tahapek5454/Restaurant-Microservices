@@ -27,7 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\..\Integration\Restaurant.Integration.Application\Restaurant.Integration.Application.csproj" />
+    <ProjectReference Include="..\..\Integration\Restaurant.Integration.Domain\Restaurant.Integration.Domain.csproj" />
   </ItemGroup>
 
 </Project>

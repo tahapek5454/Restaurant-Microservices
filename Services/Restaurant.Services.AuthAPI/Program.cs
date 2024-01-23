@@ -1,15 +1,22 @@
 using Microsoft.EntityFrameworkCore;
+using Restaurant.Integration.Application.Security;
 using Restaurant.Services.AuthAPI;
 using Restaurant.Services.AuthAPI.Data.Contexts;
+using Restaurant.Integration.Application.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddCustomSwaggerGenService();
 
 builder.Services.AddAuthServices(builder.Configuration.GetConnectionString("MSSQL"));
+
+builder.Services.Configure<CustomTokenOptions>(builder.Configuration.GetSection("TokenOptions"));
+var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<CustomTokenOptions>();
+builder.Services.AddCustomTokenAuth(tokenOptions);
+
 
 var app = builder.Build();
 

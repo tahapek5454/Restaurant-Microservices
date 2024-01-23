@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App"></FrameworkReference>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Restaurant.Integration.Domain\Restaurant.Integration.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
