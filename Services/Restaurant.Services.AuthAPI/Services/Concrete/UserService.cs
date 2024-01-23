@@ -18,6 +18,21 @@ namespace Restaurant.Services.AuthAPI.Services.Concrete
             _tokenService = tokenService;
         }
 
+        public async Task<ResponseDto<BlankDto>> AssignRoleToUserAsync(int userId, List<string> roles)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+
+            if (user == null)
+                throw new Exception("User Not Found");
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            await _userManager.RemoveFromRolesAsync(user, userRoles);
+            await _userManager.AddToRolesAsync(user, roles);
+
+            return ResponseDto<BlankDto>.Sucess(204);
+        }
+
         public async Task<ResponseDto<LoginResponseDto>> LoginUserAsync(LoginRequestDto loginRequestDto)
         {
             var user = await _userManager.FindByEmailAsync(loginRequestDto.UserNameOrEmail);
@@ -59,5 +74,8 @@ namespace Restaurant.Services.AuthAPI.Services.Concrete
             return ResponseDto<BlankDto>.Sucess(201);
 
         }
+
+
+
     }
 }

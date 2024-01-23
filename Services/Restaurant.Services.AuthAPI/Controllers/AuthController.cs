@@ -33,5 +33,13 @@ namespace Restaurant.Services.AuthAPI.Controllers
 
             return Ok(response);
         }
+
+        [HttpPost("[action]/{userid}")]
+        public async Task<IActionResult> AssignRoleToUser([FromBody] List<string> roles, [FromRoute] int userid)
+        {
+            var response = await _userService.AssignRoleToUserAsync(userid, roles);
+
+            return Ok(response);
+        }
     }
 }
