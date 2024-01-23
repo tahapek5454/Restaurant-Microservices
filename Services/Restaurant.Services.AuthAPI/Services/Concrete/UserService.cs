@@ -41,6 +41,13 @@ namespace Restaurant.Services.AuthAPI.Services.Concrete
                 user = await _userManager.FindByNameAsync(loginRequestDto.UserNameOrEmail);
                 if(user is null)
                     return ResponseDto<LoginResponseDto>.Fail("User not found", true, 500);
+            
+
+            bool isValid = await _userManager.CheckPasswordAsync(user, loginRequestDto.Password);
+
+            if(!isValid)
+                return ResponseDto<LoginResponseDto>.Fail("Password incorrect", true, 500);
+
 
             var result = await _tokenService.CreateTokenAsync(user);
 
