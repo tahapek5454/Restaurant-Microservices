@@ -8,6 +8,7 @@ namespace Restaurant.Web
         public static void AddWebServices(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<ICouponService, CouponService>();
+            serviceCollection.AddScoped<IAuthService, AuthService>();
         }
     }
 }
