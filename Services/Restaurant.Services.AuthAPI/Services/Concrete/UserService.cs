@@ -74,7 +74,9 @@ namespace Restaurant.Services.AuthAPI.Services.Concrete
 
             var result = await _userManager.CreateAsync(user, registrationRequestDto.Password);
 
-            if(!result.Succeeded)
+            await AssignRoleToUserAsync(user.Id, new() { registrationRequestDto.Role });
+
+            if (!result.Succeeded)
                 return ResponseDto<BlankDto>.Fail("User Created Fail", true, 500);
 
 
