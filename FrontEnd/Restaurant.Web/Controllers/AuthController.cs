@@ -22,6 +22,23 @@ namespace Restaurant.Web.Controllers
             return View(loginRequestDto);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> LoginAsync(LoginRequestDto loginRequestDto)
+        {
+            var result = await _authService.LoginAsync(loginRequestDto);
+
+            if (result is not null && result.IsSuccessful)
+            {
+                TempData["success"] = "Login is Successfuly";
+                return RedirectToAction("Index", "Home");
+            }
+
+            TempData["error"] = result?.Error?.Errors.First().ToString();
+            ModelState.AddModelError("CustomError", result.Error.Errors.First());
+
+            return View(loginRequestDto);
+        }
+
         [HttpGet]
         public IActionResult Register()
         {
