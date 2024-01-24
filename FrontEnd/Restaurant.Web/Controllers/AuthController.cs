@@ -36,10 +36,34 @@ namespace Restaurant.Web.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Register(RegistrationRequestDto registrationRequestDto)
+        {
+            var result = await _authService.RegisterAsync(registrationRequestDto);
+
+            if (result is not null && result.IsSuccessful)
+            {
+                TempData["success"] = "Registration is Successfuly";
+                return RedirectToAction(nameof(Login));
+            }
+            
+            TempData["error"] = result?.Error?.Errors.First().ToString();
+
+            var roleList = new List<SelectListItem>()
+            {
+                new SelectListItem() {Text = "Admin", Value="admin"},
+                new SelectListItem() {Text = "Customer", Value="customer"},
+            };
+
+            ViewBag.RoleList = roleList;
+            return View(registrationRequestDto); 
+
+        }
+
         [HttpGet]
         public IActionResult AssignRoleToUser()
         {
-           
+
 
             return View();
         }
