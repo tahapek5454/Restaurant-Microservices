@@ -37,6 +37,11 @@
                 <input asp-for="RePassword" class="form-control" placeholder="RePassword" />
             </div>
             <div class="col-6 offset-3 pb-2">
+                <select asp-for="Role" class="form-select" asp-items="@ViewBag.RoleList">
+                    <option disapled selected>--Select Roles--</option>
+                </select>
+            </div>
+            <div class="col-6 offset-3 pb-2">
                 <button type="submit" class="form-control btn-success" value="Submit">Register</button>
             </div>
         </div>

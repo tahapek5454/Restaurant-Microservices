@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Restaurant.Web.Models.Dtos.Auths;
 using Restaurant.Web.Services.Abstract;
 
@@ -24,9 +25,15 @@ namespace Restaurant.Web.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            RegistrationRequestDto registrationRequestDto = new RegistrationRequestDto();
+            var roleList = new List<SelectListItem>()
+            {
+                new SelectListItem() {Text = "Admin", Value="admin"},
+                new SelectListItem() {Text = "Customer", Value="customer"},
+            };
 
-            return View(registrationRequestDto);
+            ViewBag.RoleList = roleList;
+
+            return View();
         }
 
         [HttpGet]
