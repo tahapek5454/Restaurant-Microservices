@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Restaurant.Integration.Domain.Dtos;
@@ -11,6 +12,7 @@ namespace Restaurant.Services.CouponAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CouponsController(AppDbContext _dbContext) : ControllerBase
     {
         [HttpGet("[action]/{id}")]

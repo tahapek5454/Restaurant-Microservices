@@ -13,7 +13,7 @@ namespace Restaurant.Web.Controllers
             if(result is null || !result.IsSuccessful)
             {
                 TempData["error"] = result?.Error?.Errors.First().ToString();
-                return NotFound();
+                return RedirectToAction("Index", "Home");
             }
 
             TempData["success"] = "Success";

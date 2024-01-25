@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Integration\Restaurant.Integration.Application\Restaurant.Integration.Application.csproj" />
     <ProjectReference Include="..\..\Integration\Restaurant.Integration.Domain\Restaurant.Integration.Domain.csproj" />
   </ItemGroup>
 

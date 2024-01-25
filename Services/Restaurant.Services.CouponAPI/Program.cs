@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Restaurant.Integration.Application.Extensions;
+using Restaurant.Integration.Application.Security;
 using Restaurant.Services.CouponAPI;
 using Restaurant.Services.CouponAPI.Data.Contexts;
 
@@ -11,6 +13,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddCouponServices(builder.Configuration.GetConnectionString("MSSQL") ?? string.Empty);
 
+builder.Services.Configure<CustomTokenOptions>(builder.Configuration.GetSection("TokenOptions"));
+var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<CustomTokenOptions>();
+builder.Services.AddCustomTokenAuth(tokenOptions);
+
 var app = builder.Build();
 
 
@@ -22,6 +28,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
