@@ -16,7 +16,7 @@ namespace Restaurant.Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            TempData["success"] = "Success";
+
             return View(result.Data);
         }
 

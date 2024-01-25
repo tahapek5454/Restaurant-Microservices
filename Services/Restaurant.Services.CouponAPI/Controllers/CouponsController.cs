@@ -52,6 +52,7 @@ namespace Restaurant.Services.CouponAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles ="admin")]
         public async Task<IActionResult> CreateCoupon([FromBody] CouponCreateDto couponCreateDto)
         {
             Coupon data = ObjectMapper.Mapper.Map<Coupon>(couponCreateDto);
@@ -64,6 +65,7 @@ namespace Restaurant.Services.CouponAPI.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> UpdateCoupon([FromBody] CouponUpdateDto couponUpdateDto)
         {
             Coupon data = ObjectMapper.Mapper.Map<Coupon>(couponUpdateDto);
@@ -75,6 +77,7 @@ namespace Restaurant.Services.CouponAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteCoupon([FromRoute] int id)
         {
             Coupon? data = await _dbContext.Coupons.FindAsync(id);
