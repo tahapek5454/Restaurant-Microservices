@@ -10,6 +10,7 @@ namespace Restaurant.Web
             serviceCollection.AddScoped<ICouponService, CouponService>();
             serviceCollection.AddScoped<IAuthService, AuthService>();
             serviceCollection.AddScoped<ITokenProvider, TokenProvider>();
+            serviceCollection.AddScoped<IProductService, ProductService>();
         }
     }
 }
