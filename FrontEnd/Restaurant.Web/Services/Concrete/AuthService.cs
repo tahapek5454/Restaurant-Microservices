@@ -19,7 +19,7 @@ namespace Restaurant.Web.Services.Concrete
                 ActionType = Integration.Domain.Enums.ActionType.POST,
                 Data = roles,
                 AccessToken = null
-            });
+            }, false);
 
         public async Task<ResponseDto<LoginResponseDto>> LoginAsync(LoginRequestDto loginRequestDto)
             => await SendAsync<LoginRequestDto, LoginResponseDto>(new()
@@ -28,7 +28,7 @@ namespace Restaurant.Web.Services.Concrete
                 ActionType = Integration.Domain.Enums.ActionType.POST,
                 Data = loginRequestDto,
                 AccessToken = null
-            });
+            }, false);
 
         public async Task<ResponseDto<BlankDto>> RegisterAsync(RegistrationRequestDto registrationRequestDto)
             => await SendAsync<RegistrationRequestDto, BlankDto>(new()
@@ -37,6 +37,6 @@ namespace Restaurant.Web.Services.Concrete
                 ActionType = Integration.Domain.Enums.ActionType.POST,
                 Data = registrationRequestDto,
                 AccessToken = null
-            });
+            }, false);
     }
 }

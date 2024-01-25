@@ -8,6 +8,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
 
+LazyInitilazations.InitializeHttpContextAccessor(builder.Services.BuildServiceProvider());
+
 builder.Services.AddWebServices();
 
 

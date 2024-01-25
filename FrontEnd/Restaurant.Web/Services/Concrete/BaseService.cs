@@ -9,7 +9,7 @@ namespace Restaurant.Web.Services.Concrete
 {
     public class BaseService(IHttpClientFactory _httpClientFactory) : IBaseService
     {
-        public async Task<ResponseDto<TResponse>> SendAsync<TRequest, TResponse>(RequestDto<TRequest> requestDto)
+        public async Task<ResponseDto<TResponse>> SendAsync<TRequest, TResponse>(RequestDto<TRequest> requestDto, bool isAuthorize = true)
             where TRequest : class
 			where TResponse : class
         {
@@ -19,6 +19,12 @@ namespace Restaurant.Web.Services.Concrete
 				HttpRequestMessage message = new();
 
 				// token operations
+				if(isAuthorize)
+				{
+					var token = requestDto.AccessToken is not null ? requestDto.AccessToken : LazyInitilazations.TokenProvider.GetToken();
+					
+					message.Headers.Add("Authorization", $"Bearer {token}");
+				}
 
 				message.RequestUri = new Uri(requestDto.Url);
 
