@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddCustomSwaggerGenService();
 
 builder.Services.AddCouponServices(builder.Configuration.GetConnectionString("MSSQL") ?? string.Empty);
 

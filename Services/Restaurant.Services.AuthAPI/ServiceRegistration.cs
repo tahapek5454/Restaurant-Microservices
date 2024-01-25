@@ -37,7 +37,7 @@ namespace Restaurant.Services.AuthAPI
         {
             serviceCollection.AddSwaggerGen(option =>
             {
-                option.SwaggerDoc("v1", new OpenApiInfo { Title = "PetimeBak API", Version = "v1" });
+                option.SwaggerDoc("v1", new OpenApiInfo { Title = "Restaurant API", Version = "v1" });
                 option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,
