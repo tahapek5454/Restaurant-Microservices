@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Restaurant.Integration.Application.Extensions;
+using Restaurant.Integration.Application.Security;
 using Restaurant.Services.ProductAPI;
 using Restaurant.Services.ProductAPI.Data.Contexts;
 using Restaurant.Services.ProductAPI.Extensions;
@@ -18,6 +20,10 @@ MapFunc.InitializeHttpContextAccessor(builder.Services.BuildServiceProvider());
 
 builder.Services.AddProductServices(builder.Configuration.GetConnectionString("MSSQL"));
 
+builder.Services.Configure<CustomTokenOptions>(builder.Configuration.GetSection("TokenOptions"));
+var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<CustomTokenOptions>();
+builder.Services.AddCustomTokenAuth(tokenOptions);
+
 var app = builder.Build();
 
 
@@ -31,6 +37,7 @@ app.UseHttpsRedirection();
 
 app.UseLanguage();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Restaurant.Integration.Domain.Dtos;
@@ -14,7 +15,7 @@ namespace Restaurant.Services.ProductAPI.Controllers
     public class ProductsController(AppDbContext _appDbContext) : ControllerBase
     {
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), Authorize]
         public async Task<IActionResult> GetProductById([FromRoute]int id)
         {
             var entity = await _appDbContext.Products.AsNoTracking().FirstAsync(x => x.Id == id);
@@ -24,7 +25,7 @@ namespace Restaurant.Services.ProductAPI.Controllers
             return Ok(ResponseDto<ProductDto>.Sucess(dto, 200));
         }
 
-        [HttpGet]
+        [HttpGet, Authorize]
         public async Task<IActionResult> GetAllProducts()
         {
             var entities = await _appDbContext.Products.AsNoTracking().ToListAsync();
@@ -34,7 +35,7 @@ namespace Restaurant.Services.ProductAPI.Controllers
             return Ok(ResponseDto<List<ProductDto>>.Sucess(dtos, 200));
         }
 
-        [HttpPost]
+        [HttpPost, Authorize(Roles ="admin")]
         public async Task<IActionResult> CreateProduct(CreateProductDto createProductDto)
         {
             var newEntity = ObjectMapper.Mapper.Map<Product>(createProductDto);
@@ -46,7 +47,7 @@ namespace Restaurant.Services.ProductAPI.Controllers
             return Ok(ResponseDto<BlankDto>.Sucess(201));
         }
 
-        [HttpPut]
+        [HttpPut, Authorize(Roles = "admin")]
         public async Task<IActionResult> UpdateProduct(UpdateProductDto updateProductDto)
         {
             var updatedEntity = ObjectMapper.Mapper.Map<Product>(updateProductDto);
@@ -58,7 +59,7 @@ namespace Restaurant.Services.ProductAPI.Controllers
             return Ok(ResponseDto<BlankDto>.Sucess(204));
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteProductById([FromRoute] int id)
         {
             var entity = await _appDbContext.Products.AsNoTracking().FirstAsync(x => x.Id == id);
