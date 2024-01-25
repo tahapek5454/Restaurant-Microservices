@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Restaurant.Web.Models.Dtos.Auths;
 using Restaurant.Web.Services.Abstract;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 
 
@@ -120,7 +121,8 @@ namespace Restaurant.Web.Controllers
             identity.AddClaim(new Claim("phonenumber", jwt.Claims.FirstOrDefault(x => x.Type == "phonenumber").Value));
             identity.AddClaim(new Claim(JwtRegisteredClaimNames.Jti, jwt.Claims.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.Jti).Value));
             identity.AddClaim(new Claim(JwtRegisteredClaimNames.Aud, jwt.Claims.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.Aud).Value));
-            identity.AddClaim(new Claim(ClaimTypes.Role, jwt.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value));
+
+            identity.AddClaims(jwt.Claims.Where(x => x.Type == ClaimTypes.Role).Select(x => new Claim(ClaimTypes.Role, x.Value)));
 
             var principal = new ClaimsPrincipal(identity);
 
