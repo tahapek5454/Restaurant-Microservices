@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Restaurant.Integration.Domain.Dtos;
+using Restaurant.Integration.Domain.Enums;
 using Restaurant.Web.Models.Dtos.Coupon;
 using Restaurant.Web.Services.Abstract;
 using System.Net.Mime;
@@ -18,8 +19,14 @@ namespace Restaurant.Web.Services.Concrete
 				HttpClient client = _httpClientFactory.CreateClient("RestaurantAPI");
 				HttpRequestMessage message = new();
 
-				// token operations
-				if(isAuthorize)
+				// language support
+				if(requestDto.Language.Equals(SystemLanguage.en_EN))
+                    message.Headers.Add("support_language", SystemLanguage.en_EN.ToString());
+				else
+                    message.Headers.Add("support_language", SystemLanguage.tr_TR.ToString());
+
+                // token operations
+                if (isAuthorize)
 				{
 					var token = requestDto.AccessToken is not null ? requestDto.AccessToken : LazyInitilazations.TokenProvider.GetToken();
 					

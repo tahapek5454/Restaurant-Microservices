@@ -13,5 +13,6 @@ namespace Restaurant.Integration.Domain.Dtos
         public string Url { get; set; }
         public T? Data { get; set; }
         public string? AccessToken { get; set; }
+        public SystemLanguage Language { get; set; } = SystemLanguage.en_EN;
     }
 }
