@@ -1,0 +1,80 @@
+﻿@using Restaurant.Web.Models.Dtos.Product
+
+@model CreateProductDto
+
+<form asp-action="ProductCreate">
+    <br />
+    <div class="container border p-3">
+        <h1 class="text-white text-center">Create Product</h1>
+        <hr />
+        <div class="row">
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">Name_EN</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="Name_EN" class="form-control" />
+                <span asp-validation-for="Name_EN" class="text-danger"></span>
+            </div>
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">Name_TR?</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="Name_TR" class="form-control" />
+                <span asp-validation-for="Name_TR" class="text-danger"></span>
+            </div>
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">Category Name_EN</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="CategoryName_EN" class="form-control" />
+                <span asp-validation-for="CategoryName_EN" class="text-danger"></span>
+            </div>
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">Category Name_TR?</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="CategoryName_TR" class="form-control" />
+                <span asp-validation-for="CategoryName_TR" class="text-danger"></span>
+            </div>
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">Description_EN</label>
+            </div>
+            <div class="col-10 pb-3">
+                <textarea asp-for="Descripton_EN" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="Descripton_EN" class="text-danger"></span>
+            </div>
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">Description_TR?</label>
+            </div>
+            <div class="col-10 pb-3">
+                <textarea asp-for="Description_TR" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="Description_TR" class="text-danger"></span>
+            </div>
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">ImageUrl?</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">Price</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="col-5 offset-2">
+
+                <a class="btn-primary btn form-control ">Back to List</a>
+            </div>
+            <div class="col-5">
+                <input type="submit" value="Create" class="btn btn-success form-control" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
