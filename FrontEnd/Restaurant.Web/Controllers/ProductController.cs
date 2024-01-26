@@ -52,5 +52,17 @@ namespace Restaurant.Web.Controllers
             return View(model);
 
 		}
+
+        public async Task<IActionResult> ProductDelete(int productId)
+        {
+			var result = await _productService.DeleteProductByIdAsync(productId);
+
+			if (!result.IsSuccessful)
+				TempData["error"] = result?.Error?.Errors.First().ToString();
+			else
+				TempData["success"] = "Successfuly deleted.";
+
+			return RedirectToAction(nameof(ProductIndex));
+		}
 	}
 }
