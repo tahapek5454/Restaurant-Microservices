@@ -53,6 +53,36 @@ namespace Restaurant.Web.Controllers
 
 		}
 
+        public IActionResult ProductUpdate(int productId)
+        {
+            UpdateProductDto updateProductDto = new UpdateProductDto()
+            {
+                Id = productId,
+            };
+
+            return View(updateProductDto);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ProductUpdate(UpdateProductDto model)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var result = await _productService.UpdateProductAsync(model);
+
+            if (result is not null || result.IsSuccessful)
+                return RedirectToAction(nameof(ProductIndex));
+
+
+            TempData["error"] = result?.Error?.Errors.First().ToString();
+
+            return View(model);
+
+        }
+
         public async Task<IActionResult> ProductDelete(int productId)
         {
 			var result = await _productService.DeleteProductByIdAsync(productId);
