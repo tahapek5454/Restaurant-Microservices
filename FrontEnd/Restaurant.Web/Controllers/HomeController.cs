@@ -1,21 +1,30 @@
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.Web.Models;
+using Restaurant.Web.Services.Abstract;
 using System.Diagnostics;
 
 namespace Restaurant.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IProductService _productService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IProductService productService)
         {
-            _logger = logger;
+            _productService = productService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var result = await _productService.GetAllProductsAsync();
+
+            if (result is null || !result.IsSuccessful)
+            {
+                TempData["error"] = result?.Error?.Errors.First().ToString();
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(result.Data);
         }
 
         public IActionResult Privacy()

@@ -15,7 +15,7 @@ namespace Restaurant.Services.ProductAPI.Controllers
     public class ProductsController(AppDbContext _appDbContext) : ControllerBase
     {
 
-        [HttpGet("{id}"), Authorize]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetProductById([FromRoute]int id)
         {
             var entity = await _appDbContext.Products.AsNoTracking().FirstAsync(x => x.Id == id);
@@ -25,7 +25,7 @@ namespace Restaurant.Services.ProductAPI.Controllers
             return Ok(ResponseDto<ProductDto>.Sucess(dto, 200));
         }
 
-        [HttpGet, Authorize]
+        [HttpGet]
         public async Task<IActionResult> GetAllProducts()
         {
             var entities = await _appDbContext.Products.AsNoTracking().ToListAsync();
