@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.Web.Models;
 using Restaurant.Web.Services.Abstract;
@@ -17,6 +18,20 @@ namespace Restaurant.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var result = await _productService.GetAllProductsAsync();
+
+            if (result is null || !result.IsSuccessful)
+            {
+                TempData["error"] = result?.Error?.Errors.First().ToString();
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(result.Data);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> ProductDetails(int productid)
+        {
+            var result = await _productService.GetProductByIdAsync(productid);
 
             if (result is null || !result.IsSuccessful)
             {
