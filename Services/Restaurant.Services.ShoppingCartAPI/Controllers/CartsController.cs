@@ -72,5 +72,35 @@ namespace Restaurant.Services.ShoppingCartAPI.Controllers
                 return BadRequest(ex.Message);  
             }
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> RemoveCart([FromBody] int cartDetailId)
+        {
+            try
+            {
+                CartDetail? cartDetail = await _appDbContext.CartDetails.FirstOrDefaultAsync(x => x.Id.Equals(cartDetailId));
+
+                if (cartDetail is null)
+                {
+                    throw new Exception("CartDetails not found");
+                }
+
+                int totalCartDetailsCountForHeader = await _appDbContext.CartDetails.Where(x => x.CartHeaderId.Equals(cartDetail.CartHeaderId)).CountAsync();
+                _appDbContext.Remove(cartDetail);
+
+                if (totalCartDetailsCountForHeader == 1)
+                    _appDbContext.Remove(_appDbContext.CartHeaders.First(x => x.Id.Equals(cartDetail.CartHeaderId)));
+
+                await _appDbContext.SaveChangesAsync();
+
+                return Ok(ResponseDto<BlankDto>.Sucess(201));
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
