@@ -13,6 +13,41 @@ namespace Restaurant.Services.ShoppingCartAPI.Controllers
     [ApiController]
     public class CartsController(AppDbContext _appDbContext) : ControllerBase
     {
+
+        [HttpGet("{userid}")]
+        public async Task<IActionResult> GetCart([FromRoute] int userid)
+        {
+            try
+            {
+                var cartHeader = await _appDbContext.CartHeaders.FirstOrDefaultAsync(x => x.UserId == userid);
+
+                if (cartHeader is null)
+                    throw new Exception("Cart Header Not Found");
+
+                var cartDetails = await _appDbContext.CartDetails.Where(x => x.CartHeaderId == cartHeader.Id).ToListAsync();
+
+                foreach (var cartDetail in cartDetails)
+                {
+                    cartHeader.CartTotal += cartDetail.Product.Price * cartDetail.Count;
+                }
+
+                CartDto cartDto = new()
+                {
+                    CartDetails = ObjectMapper.Mapper.Map<List<CartDetailDto>>(cartDetails),
+                    CartHeader = ObjectMapper.Mapper.Map<CartHeaderDto>(cartHeader)
+                };
+
+                return Ok(ResponseDto<CartDto>.Sucess(cartDto, 200));
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> Upsert([FromBody]CartDto cartDto)
         {
