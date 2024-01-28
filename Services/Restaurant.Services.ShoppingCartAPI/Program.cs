@@ -1,15 +1,28 @@
+using Microsoft.EntityFrameworkCore;
+using Restaurant.Integration.Application.Extensions;
+using Restaurant.Integration.Application.Security;
+using Restaurant.Services.ShoppingCartAPI;
+using Restaurant.Services.ShoppingCartAPI.Data.Contexts;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddCustomSwaggerGenService();
+
+builder.Services.AddCartServices(builder.Configuration.GetConnectionString("MSSQL"));
+
+
+builder.Services.Configure<CustomTokenOptions>(builder.Configuration.GetSection("TokenOptions"));
+var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<CustomTokenOptions>();
+builder.Services.AddCustomTokenAuth(tokenOptions);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -18,8 +31,19 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
+ApplyPendigMigration();
 app.Run();
+
+void ApplyPendigMigration()
+{
+    using var scope = app.Services.CreateScope();
+
+    var _db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+    if (_db.Database.GetPendingMigrations().Count() > 0)
+        _db.Database.Migrate();
+}
