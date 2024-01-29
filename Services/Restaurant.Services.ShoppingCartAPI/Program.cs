@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Restaurant.Integration.Application.Extensions;
 using Restaurant.Integration.Application.Security;
+using Restaurant.Integration.Domain.Consts;
 using Restaurant.Services.ShoppingCartAPI;
 using Restaurant.Services.ShoppingCartAPI.Data.Contexts;
 
@@ -14,6 +15,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCustomSwaggerGenService();
 
 builder.Services.AddCartServices(builder.Configuration.GetConnectionString("MSSQL"));
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient();
 
 
 builder.Services.Configure<CustomTokenOptions>(builder.Configuration.GetSection("TokenOptions"));

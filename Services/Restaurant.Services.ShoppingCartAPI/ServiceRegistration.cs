@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Restaurant.Services.ShoppingCartAPI.Data.Contexts;
+using Restaurant.Services.ShoppingCartAPI.Services.Abstract;
+using Restaurant.Services.ShoppingCartAPI.Services.Concrete;
 using System.Reflection;
 
 namespace Restaurant.Services.ShoppingCartAPI
@@ -16,6 +18,8 @@ namespace Restaurant.Services.ShoppingCartAPI
 
 
             serviceCollection.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            serviceCollection.AddScoped<IProductService, ProductService>();
         }
 
 

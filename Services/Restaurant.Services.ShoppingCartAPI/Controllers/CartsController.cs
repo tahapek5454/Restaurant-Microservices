@@ -6,29 +6,33 @@ using Restaurant.Services.ShoppingCartAPI.Data.Contexts;
 using Restaurant.Services.ShoppingCartAPI.Mapper;
 using Restaurant.Services.ShoppingCartAPI.Models;
 using Restaurant.Services.ShoppingCartAPI.Models.Dtos;
+using Restaurant.Services.ShoppingCartAPI.Services.Abstract;
 
 namespace Restaurant.Services.ShoppingCartAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CartsController(AppDbContext _appDbContext) : ControllerBase
+    public class CartsController(AppDbContext _appDbContext, IProductService _productService) : ControllerBase
     {
 
-        [HttpGet("{userid}")]
-        public async Task<IActionResult> GetCart([FromRoute] int userid)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCart([FromRoute] int id)
         {
             try
             {
-                var cartHeader = await _appDbContext.CartHeaders.FirstOrDefaultAsync(x => x.UserId == userid);
+                var cartHeader = await _appDbContext.CartHeaders.FirstOrDefaultAsync(x => x.UserId == id);
 
                 if (cartHeader is null)
                     throw new Exception("Cart Header Not Found");
 
                 var cartDetails = await _appDbContext.CartDetails.Where(x => x.CartHeaderId == cartHeader.Id).ToListAsync();
 
+                IEnumerable<ProductDto> productDtos = await _productService.GetAllProducts();
+
                 foreach (var cartDetail in cartDetails)
                 {
-                    cartHeader.CartTotal += cartDetail.Product.Price * cartDetail.Count;
+                    cartDetail.Product = productDtos?.FirstOrDefault(x => x.Id.Equals(cartDetail.ProductId));
+                    cartHeader.CartTotal += (cartDetail?.Product?.Price ?? 0) * (cartDetail?.Count ?? 0);
                 }
 
                 CartDto cartDto = new()

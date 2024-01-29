@@ -10,7 +10,9 @@ namespace Restaurant.Services.ShoppingCartAPI.Mapper.CartProfile
         {
             CreateMap<CartDetailDto, CartDetail>()
                 .ForMember(dest => dest.CartHeader, opt => opt.MapFrom(src => src.CartHeader));
-            CreateMap<CartHeaderDto, CartHeader>();
+            CreateMap<CartDetail, CartDetailDto>();
+
+            CreateMap<CartHeaderDto, CartHeader>().ReverseMap();
         }
     }
 }
