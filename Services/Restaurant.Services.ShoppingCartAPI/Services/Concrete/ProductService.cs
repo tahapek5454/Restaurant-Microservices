@@ -12,7 +12,7 @@ namespace Restaurant.Services.ShoppingCartAPI.Services.Concrete
         public async Task<ProductDto> GetAllProductById(int id)
         {
             var client = _httpClientFactory.CreateClient("Product");
-            var httpResponse = await client.GetAsync($"/Products/{id}");
+            var httpResponse = await client.GetAsync($"{ConstData.ProductAPIBase}/Products/{id}");
 
 
             var response = JsonConvert.DeserializeObject<ResponseDto<ProductDto>>(await httpResponse.Content.ReadAsStringAsync());

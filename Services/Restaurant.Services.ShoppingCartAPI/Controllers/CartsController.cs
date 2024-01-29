@@ -15,12 +15,12 @@ namespace Restaurant.Services.ShoppingCartAPI.Controllers
     public class CartsController(AppDbContext _appDbContext, IProductService _productService) : ControllerBase
     {
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetCart([FromRoute] int id)
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetCart([FromRoute] int userId)
         {
             try
             {
-                var cartHeader = await _appDbContext.CartHeaders.FirstOrDefaultAsync(x => x.UserId == id);
+                var cartHeader = await _appDbContext.CartHeaders.FirstOrDefaultAsync(x => x.UserId == userId);
 
                 if (cartHeader is null)
                     throw new Exception("Cart Header Not Found");
@@ -141,5 +141,56 @@ namespace Restaurant.Services.ShoppingCartAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> ApplyCoupon([FromBody] CartDto cartDto)
+        {
+            try
+            {
+                var cartHeader = await _appDbContext.CartHeaders.FirstOrDefaultAsync(x => x.UserId.Equals(cartDto.CartHeader.UserId));
+
+                if (cartHeader is null)
+                    throw new Exception("CartHeader is not found");
+
+                cartHeader.CouponCode = cartDto.CartHeader.CouponCode;
+
+                _appDbContext.Update(cartHeader);
+                await _appDbContext.SaveChangesAsync();
+
+                return Ok(ResponseDto<BlankDto>.Sucess(201));
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> RemoveCoupon([FromBody] CartDto cartDto)
+        {
+            try
+            {
+                var cartHeader = await _appDbContext.CartHeaders.FirstOrDefaultAsync(x => x.UserId.Equals(cartDto.CartHeader.UserId));
+
+                if (cartHeader is null)
+                    throw new Exception("CartHeader is not found");
+
+                cartHeader.CouponCode = string.Empty;
+
+                _appDbContext.Update(cartHeader);
+                await _appDbContext.SaveChangesAsync();
+
+                return Ok(ResponseDto<BlankDto>.Sucess(201));
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }
