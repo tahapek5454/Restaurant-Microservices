@@ -20,6 +20,7 @@ namespace Restaurant.Services.ShoppingCartAPI
             serviceCollection.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             serviceCollection.AddScoped<IProductService, ProductService>();
+            serviceCollection.AddScoped<ICouponService, CouponService>();
         }
 
 

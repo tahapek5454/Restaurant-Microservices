@@ -12,7 +12,7 @@ namespace Restaurant.Services.ShoppingCartAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CartsController(AppDbContext _appDbContext, IProductService _productService) : ControllerBase
+    public class CartsController(AppDbContext _appDbContext, IProductService _productService, ICouponService _couponService) : ControllerBase
     {
 
         [HttpGet("{userId}")]
@@ -33,6 +33,17 @@ namespace Restaurant.Services.ShoppingCartAPI.Controllers
                 {
                     cartDetail.Product = productDtos?.FirstOrDefault(x => x.Id.Equals(cartDetail.ProductId));
                     cartHeader.CartTotal += (cartDetail?.Product?.Price ?? 0) * (cartDetail?.Count ?? 0);
+                }
+
+                if (!string.IsNullOrEmpty(cartHeader.CouponCode))
+                {
+                    var coupon = await _couponService.GetCouponByCodeAsync(cartHeader.CouponCode);
+
+                    if(cartHeader.CartTotal >= coupon.MinAmount)
+                    {
+                        cartHeader.CartTotal -= coupon.DiscountAmount;
+                        cartHeader.Discount = coupon.DiscountAmount;
+                    }
                 }
 
                 CartDto cartDto = new()
