@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Restaurant.Integration.Domain.Dtos
 {
-    public class RequestDto<T> where T : class
+    public class RequestDto<T> 
     {
         public ActionType ActionType { get; set; } = ActionType.GET;
         public string Url { get; set; }
