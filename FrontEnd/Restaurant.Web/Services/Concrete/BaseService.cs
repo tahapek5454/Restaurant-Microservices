@@ -11,7 +11,6 @@ namespace Restaurant.Web.Services.Concrete
     public class BaseService(IHttpClientFactory _httpClientFactory) : IBaseService
     {
         public async Task<ResponseDto<TResponse>> SendAsync<TRequest, TResponse>(RequestDto<TRequest> requestDto, bool isAuthorize = true)
-            where TRequest : class
 			where TResponse : class
         {
 			try

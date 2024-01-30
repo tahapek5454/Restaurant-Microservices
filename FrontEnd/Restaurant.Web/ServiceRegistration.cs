@@ -11,6 +11,7 @@ namespace Restaurant.Web
             serviceCollection.AddScoped<IAuthService, AuthService>();
             serviceCollection.AddScoped<ITokenProvider, TokenProvider>();
             serviceCollection.AddScoped<IProductService, ProductService>();
+            serviceCollection.AddScoped<ICartService, CartService>();
         }
     }
 }
