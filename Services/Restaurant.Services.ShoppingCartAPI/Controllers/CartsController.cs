@@ -68,7 +68,7 @@ namespace Restaurant.Services.ShoppingCartAPI.Controllers
         {
             try
             {
-                var cartHeader = await _appDbContext.CartHeaders.FirstOrDefaultAsync(x => x.Id.Equals(cartDto.CartHeader.Id));
+                var cartHeader = await _appDbContext.CartHeaders.FirstOrDefaultAsync(x => x.Id.Equals(cartDto.CartHeader.UserId));
                 
                 if(cartHeader is null)
                 {
@@ -78,11 +78,11 @@ namespace Restaurant.Services.ShoppingCartAPI.Controllers
 
                     cartDto.CartHeader.Id = cartHeader.Id;  
 
-                    foreach (var cartDetail in cartDto.CartDetails)
-                    {
-                        cartDetail.CartHeaderId = cartHeader.Id;
-                    }
+                }
 
+                foreach (var cartDetail in cartDto.CartDetails)
+                {
+                    cartDetail.CartHeaderId = cartHeader.Id;
                 }
 
                 List<CartDetail> willUpdateCartDetails = new();
