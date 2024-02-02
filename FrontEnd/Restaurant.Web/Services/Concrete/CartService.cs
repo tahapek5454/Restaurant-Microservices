@@ -1,4 +1,5 @@
-﻿using Restaurant.Integration.Domain.Dtos;
+﻿using Restaurant.Integration.Domain.Consts;
+using Restaurant.Integration.Domain.Dtos;
 using Restaurant.Web.Models.Dtos.Cart;
 using Restaurant.Web.Services.Abstract;
 
@@ -17,7 +18,7 @@ namespace Restaurant.Web.Services.Concrete
              Data = cartDto,
              Language = Integration.Domain.Enums.SystemLanguage.en_EN,
              AccessToken = null,
-             Url = "/Carts/ApplyCoupon"
+             Url = $"{ConstData.ShoppingCartApıBase}/Carts/ApplyCoupon"
 
          });
 
@@ -26,7 +27,7 @@ namespace Restaurant.Web.Services.Concrete
         {
             ActionType = Integration.Domain.Enums.ActionType.GET,
             Language = Integration.Domain.Enums.SystemLanguage.en_EN,
-            Url = $"/Carts/{userId}",
+            Url = $"{ConstData.ShoppingCartApıBase}/Carts/{userId}",
             AccessToken = null,
             Data = null,
         });
@@ -38,7 +39,7 @@ namespace Restaurant.Web.Services.Concrete
                 Language = Integration.Domain.Enums.SystemLanguage.en_EN,
                 AccessToken=null,
                 Data = cartDetailId,
-                Url = "/Carts"
+                Url = $"{ConstData.ShoppingCartApıBase}/Carts"
             });
 
 
@@ -48,7 +49,7 @@ namespace Restaurant.Web.Services.Concrete
                 ActionType = Integration.Domain.Enums.ActionType.POST,
                 Language = Integration.Domain.Enums.SystemLanguage.en_EN,
                 Data = cartDto,
-                Url = "/Carts/RemoveCoupon"
+                Url = $"{ConstData.ShoppingCartApıBase}/Carts/RemoveCoupon"
             });
 
         public async Task<ResponseDto<CartDto>> UpsertCartAsync(CartDto cartDto)
@@ -58,7 +59,7 @@ namespace Restaurant.Web.Services.Concrete
                 Language = Integration.Domain.Enums.SystemLanguage.en_EN,
                 Data = cartDto,
                 AccessToken = null,
-                Url = "/Carts"
+                Url = $"{ConstData.ShoppingCartApıBase}/Carts"
             });
     }
 
