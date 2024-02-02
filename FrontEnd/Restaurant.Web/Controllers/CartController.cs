@@ -14,7 +14,7 @@ namespace Restaurant.Web.Controllers
         {
             var cart = await LoadCartDtoBasedOnLoggedInUser();
 
-            return View();
+            return View(cart);
         }
 
         private async Task<CartDto> LoadCartDtoBasedOnLoggedInUser()
