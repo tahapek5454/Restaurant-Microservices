@@ -2,7 +2,7 @@
 
 namespace Restaurant.Services.ShoppingCartAPI.Services.Abstract
 {
-    public interface ICouponService
+    public interface ICouponService: IBaseService
     {
         Task<CouponDto> GetCouponByCodeAsync(string couponCode);
        

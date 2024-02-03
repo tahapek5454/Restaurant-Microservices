@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Restaurant.Integration.Domain.Dtos;
@@ -12,6 +13,7 @@ namespace Restaurant.Services.ShoppingCartAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CartsController(AppDbContext _appDbContext, IProductService _productService, ICouponService _couponService) : ControllerBase
     {
 

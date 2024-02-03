@@ -12,7 +12,7 @@ namespace Restaurant.Services.CouponAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class CouponsController(AppDbContext _dbContext) : ControllerBase
     {
         [HttpGet("[action]/{id}")]
