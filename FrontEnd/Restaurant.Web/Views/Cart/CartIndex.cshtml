@@ -4,6 +4,8 @@
 
 <form method="post">
     <br />
+    <input asp-for="CartHeader.Id" hidden/>
+    <input asp-for="CartHeader.UserId" hidden />
     <div class="">
         <div class="card border mt-4 container">
             <div class="card-header bg-dark text-light ml-0 row ">
@@ -40,11 +42,11 @@
                             <img src="https://placehold.co/600x400" class="rounded" width="100%" />
                         </div>
                         <div class="col-8 col-md-5">
-                            <h5>@cartobj.Product.Name</h5>
-                            <div style="font-size:11px;">@Html.Raw(cartobj.Product.Descripton)</div>
+                            <h5>@cartobj.Product?.Name</h5>
+                            <div style="font-size:11px;">@Html.Raw(cartobj.Product?.Descripton)</div>
                         </div>
                         <div class="col-3 col-md-2 pt-md-4" style="font-size:11px;">
-                            <span style="font-size:17px;">@string.Format("{0:c}", cartobj.Product.Price) </span>
+                            <span style="font-size:17px;">@string.Format("{0:c}", cartobj.Product?.Price) </span>
                         </div>
                         <div class="col-3 col-md-2 pt-md-4" style="font-size:11px;">
                             <span style="font-size:17px;"> @cartobj.Count</span>
@@ -60,13 +62,27 @@
                 <hr />
                 <div class="row">
                     <div class="col-6">
-                        <span>Coupon:</span>
-                        <input />
-                        <button type="submit" class="btn btn-sm btn-success"> Apply </button>
+                        @if (string.IsNullOrEmpty(Model.CartHeader?.CouponCode))
+                        {
+                            <span>Coupon:</span>
+                            <input asp-for="CartHeader.CouponCode" />
+                            <button type="submit" asp-action="ApplyCoupon" class="btn btn-sm btn-success"> Apply </button>
+                        }
+                        else
+                        {
+                            <span>Coupon:</span>
+                            <input asp-for="CartHeader.CouponCode" />
+                            <button type="submit" asp-action="RemoveCoupon" class="btn btn-sm btn-success"> Remove </button>
+                        }
+
                     </div>
                     <div class="col-6 text-end">
-                        <span class="text-danger" style="font-size:21px;">  Order Total : $$ <br /></span>
-                        <span class="text-success"> Order Discount :  $$</span>
+                        <span class="text-danger" style="font-size:21px;">  Order Total : @string.Format("{0:c}", Model.CartHeader?.CartTotal)$$ <br /></span>
+                        @if(Model.CartHeader?.Discount > 0)
+                        {
+                            <span class="text-success"> Order Discount :@string.Format("{0:c}", Model.CartHeader?.Discount)$$</span>
+
+                        }
                     </div>
                 </div>
             </div>
@@ -75,7 +91,7 @@
                     <button type="submit" class="btn btn-outline-danger form-control">Email Cart</button>
                 </div>
                 <div class="col-6 col-md-3 offset-md-6">
-                    <button disabled class="btn btn-success form-control " value="Checkout (Comming Soon!)" />
+                    <button disabled class="btn btn-success form-control ">Checkout (Comming Soon!)</button>
                 </div>
             </div>
         </div>

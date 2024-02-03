@@ -28,5 +28,47 @@ namespace Restaurant.Web.Controllers
 
             return new();
         }
+
+        public async Task<IActionResult> Remove(int cartDetailId)
+        {
+            var response = await _cartService.RemoveCartAsync(cartDetailId);
+            if(response is not null && response.IsSuccessful)
+            {
+                TempData["success"] = "Deleted CartItem Successfully";
+            }else
+            { TempData["error"] = response.Error.Errors.First(); }
+
+
+            return RedirectToAction(nameof(CartIndex));
+
+        }
+
+        public async  Task<IActionResult> ApplyCoupon(CartDto cartDto)
+        {
+            var response = await _cartService.ApplyCouponAsync(cartDto);
+            if (response is not null && response.IsSuccessful)
+            {
+                TempData["success"] = "Apply Coupon Successfully";
+            }
+            else
+            { TempData["error"] = response.Error.Errors.First(); }
+
+
+            return RedirectToAction(nameof(CartIndex));
+        }
+
+        public async Task<IActionResult> RemoveCoupon(CartDto cartDto)
+        {
+            var response = await _cartService.RemoveCoupon(cartDto);
+            if (response is not null && response.IsSuccessful)
+            {
+                TempData["success"] = "Remove Coupon  Successfully";
+            }
+            else
+            { TempData["error"] = response.Error.Errors.First(); }
+
+
+            return RedirectToAction(nameof(CartIndex));
+        }
     }
 }
