@@ -23,7 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Integration.Appl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Services.ProductAPI", "Services\Restaurant.Services.ProductAPI\Restaurant.Services.ProductAPI.csproj", "{0C362187-4EE3-4802-ADCF-29613C4120D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Services.ShoppingCartAPI", "Services\Restaurant.Services.ShoppingCartAPI\Restaurant.Services.ShoppingCartAPI.csproj", "{FCC4C732-5667-46BD-9D46-4CDE5B482A01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Services.ShoppingCartAPI", "Services\Restaurant.Services.ShoppingCartAPI\Restaurant.Services.ShoppingCartAPI.csproj", "{FCC4C732-5667-46BD-9D46-4CDE5B482A01}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orchestration", "Orchestration", "{214E1E38-2035-4B90-8741-4FDFA5D5ADF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestration.Service", "Orchestration\Orchestration.Service\Orchestration.Service.csproj", "{54EB7CC7-25CB-4C70-9FB8-E4A650FAFBB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +63,10 @@ Global
 		{FCC4C732-5667-46BD-9D46-4CDE5B482A01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCC4C732-5667-46BD-9D46-4CDE5B482A01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCC4C732-5667-46BD-9D46-4CDE5B482A01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54EB7CC7-25CB-4C70-9FB8-E4A650FAFBB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54EB7CC7-25CB-4C70-9FB8-E4A650FAFBB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54EB7CC7-25CB-4C70-9FB8-E4A650FAFBB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54EB7CC7-25CB-4C70-9FB8-E4A650FAFBB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +79,7 @@ Global
 		{7394F316-B64A-4CA6-B6C5-52646D5CA859} = {DA3C3D72-E203-4D22-A338-E12B283123EF}
 		{0C362187-4EE3-4802-ADCF-29613C4120D5} = {D3D7F932-7544-446B-92CC-C933295B8487}
 		{FCC4C732-5667-46BD-9D46-4CDE5B482A01} = {D3D7F932-7544-446B-92CC-C933295B8487}
+		{54EB7CC7-25CB-4C70-9FB8-E4A650FAFBB9} = {214E1E38-2035-4B90-8741-4FDFA5D5ADF0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7FB56A12-70AC-4305-B095-C74922572C5A}
