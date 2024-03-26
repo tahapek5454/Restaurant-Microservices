@@ -205,5 +205,22 @@ namespace Restaurant.Services.ShoppingCartAPI.Controllers
             }
         }
 
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> EmailCart([FromBody] CartDto cartDto)
+        {
+            try
+            {
+
+                return Ok(ResponseDto<BlankDto>.Sucess(201));
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }

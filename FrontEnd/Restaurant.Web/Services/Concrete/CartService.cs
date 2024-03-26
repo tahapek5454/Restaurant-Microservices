@@ -22,6 +22,16 @@ namespace Restaurant.Web.Services.Concrete
 
          });
 
+        public async Task<ResponseDto<BlankDto>> EmailCart(CartDto cartDto)
+         => await SendAsync<CartDto, BlankDto>(new()
+         {
+             ActionType = Integration.Domain.Enums.ActionType.POST,
+             Data = cartDto,
+             Language = Integration.Domain.Enums.SystemLanguage.en_EN,
+             AccessToken= null,
+             Url = $"{ConstData.ShoppingCartApıBase}/Carts/EmailCart"
+         });
+
         public async Task<ResponseDto<CartDto>> GetCartByUserIdAsync(int userId)
         => await SendAsync<BlankDto, CartDto>(new()
         {

@@ -13,5 +13,7 @@ namespace Restaurant.Web.Services.Abstract
         Task<ResponseDto<BlankDto>> ApplyCouponAsync(CartDto cartDto);
         Task<ResponseDto<BlankDto>> RemoveCoupon(CartDto cartDto);
 
+        Task<ResponseDto<BlankDto>> EmailCart(CartDto cartDto);
+
     }
 }

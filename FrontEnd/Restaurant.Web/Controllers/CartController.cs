@@ -70,5 +70,23 @@ namespace Restaurant.Web.Controllers
 
             return RedirectToAction(nameof(CartIndex));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> EmailCart()
+        {
+            var cart = await LoadCartDtoBasedOnLoggedInUser();
+            cart.CartHeader.Email = User.Claims.Where(u => u.Type == ClaimTypes.Email).FirstOrDefault()?.Value ?? "";
+
+            var response = await _cartService.EmailCart(cart);
+            if (response is not null && response.IsSuccessful)
+            {
+                TempData["success"] = "Email Send Successfully";
+            }
+            else
+            { TempData["error"] = response.Error.Errors.First(); }
+
+
+            return RedirectToAction(nameof(CartIndex));
+        }
     }
 }
