@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using MassTransit;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Restaurant.Integration.Application.Events.EmailEvents;
+using Restaurant.Integration.Application.RabbitSettings;
 using Restaurant.Integration.Domain.Dtos;
 using Restaurant.Services.ShoppingCartAPI.Data.Contexts;
 using Restaurant.Services.ShoppingCartAPI.Mapper;
@@ -9,12 +12,13 @@ using Restaurant.Services.ShoppingCartAPI.Models;
 using Restaurant.Services.ShoppingCartAPI.Models.Dtos;
 using Restaurant.Services.ShoppingCartAPI.Services.Abstract;
 
+
 namespace Restaurant.Services.ShoppingCartAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class CartsController(AppDbContext _appDbContext, IProductService _productService, ICouponService _couponService) : ControllerBase
+    public class CartsController(AppDbContext _appDbContext, IProductService _productService, ICouponService _couponService, ISendEndpointProvider _sendEndpointProvider) : ControllerBase
     {
 
         [HttpGet("{userId}")]
@@ -211,6 +215,14 @@ namespace Restaurant.Services.ShoppingCartAPI.Controllers
         {
             try
             {
+                var sendEndpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri($"queue:{QueueNames.EmaiilStateMachineQueue}"));
+
+                await sendEndpoint.Send<EmailSendStartedEvent>(new()
+                {
+                    Id = Guid.NewGuid(),
+                    Payload = JsonConvert.SerializeObject(cartDto),
+                    To = cartDto.CartHeader.Email
+                });
 
                 return Ok(ResponseDto<BlankDto>.Sucess(201));
 
