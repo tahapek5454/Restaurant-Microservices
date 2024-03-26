@@ -24,6 +24,8 @@ builder.Services.Configure<CustomTokenOptions>(builder.Configuration.GetSection(
 var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<CustomTokenOptions>();
 builder.Services.AddCustomTokenAuth(tokenOptions);
 
+builder.Services.AddRestaurantMassTransitServices(builder.Configuration.GetConnectionString("RabbitMQ"));
+
 var app = builder.Build();
 
 

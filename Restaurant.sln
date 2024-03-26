@@ -29,6 +29,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orchestration", "Orchestrat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestration.Service", "Orchestration\Orchestration.Service\Orchestration.Service.csproj", "{54EB7CC7-25CB-4C70-9FB8-E4A650FAFBB9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Email.Service", "Services\Restaurant.Email.Service\Restaurant.Email.Service.csproj", "{55A56CFB-3659-4A27-853C-06CF7520FEBA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{54EB7CC7-25CB-4C70-9FB8-E4A650FAFBB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54EB7CC7-25CB-4C70-9FB8-E4A650FAFBB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54EB7CC7-25CB-4C70-9FB8-E4A650FAFBB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55A56CFB-3659-4A27-853C-06CF7520FEBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55A56CFB-3659-4A27-853C-06CF7520FEBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55A56CFB-3659-4A27-853C-06CF7520FEBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55A56CFB-3659-4A27-853C-06CF7520FEBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,6 +86,7 @@ Global
 		{0C362187-4EE3-4802-ADCF-29613C4120D5} = {D3D7F932-7544-446B-92CC-C933295B8487}
 		{FCC4C732-5667-46BD-9D46-4CDE5B482A01} = {D3D7F932-7544-446B-92CC-C933295B8487}
 		{54EB7CC7-25CB-4C70-9FB8-E4A650FAFBB9} = {214E1E38-2035-4B90-8741-4FDFA5D5ADF0}
+		{55A56CFB-3659-4A27-853C-06CF7520FEBA} = {D3D7F932-7544-446B-92CC-C933295B8487}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7FB56A12-70AC-4305-B095-C74922572C5A}

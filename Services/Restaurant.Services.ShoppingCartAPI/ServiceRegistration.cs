@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MassTransit;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Restaurant.Services.ShoppingCartAPI.Data.Contexts;
 using Restaurant.Services.ShoppingCartAPI.Services.Abstract;
@@ -51,6 +52,17 @@ namespace Restaurant.Services.ShoppingCartAPI
                         },
                         new string[]{}
                     }
+                });
+            });
+        }
+
+        public static void AddRestaurantMassTransitServices(this IServiceCollection services, string connectionString)
+        {
+            services.AddMassTransit(configure =>
+            {
+                configure.UsingRabbitMq((context, configurator) =>
+                {
+                    configurator.Host(connectionString);
                 });
             });
         }
